@@ -13,11 +13,12 @@ namespace Ludus.SDK.Framework
 
         protected GameObject objeto;
         protected GameObject sombra;
+        public int objetoLargura = 100, objetoAltura = 100, sombraLargura = 100, sombraAltura = 100;
         protected GameObject painel;
         protected List<Image> imgsObjeto;
         protected List<Image> imgsObjetoPareado;
         protected List<AudioSource> audiosSourceObjetos;
-
+        public int sombraAuxiliarLargura = 100, sombraAuxiliarAltura = 100;
         protected List<Sprite> spritesObjeto;
         protected List<Sprite> spritesObjetoPareado;
         protected List<Sprite> spritesSombra;
@@ -79,6 +80,14 @@ namespace Ludus.SDK.Framework
                 Controle.configuracao.conteudoauxiliar = this.conteudoauxiliar;
                 Controle.configuracao.sombraauxiliar = this.sombraauxiliar; 
                 Controle.configuracao.substituirObjetoAoParear = this.substituirObjetoAoParear;
+
+                //Larguras e Alturas
+                Controle.configuracao.objetoAltura = this.objetoAltura;
+                Controle.configuracao.objetoLargura = this.objetoLargura;
+                Controle.configuracao.sombraAltura = this.sombraAltura; 
+                Controle.configuracao.sombraLargura = this.sombraLargura;   
+                Controle.configuracao.sombraAuxiliarAltura = this.sombraAuxiliarAltura;
+                Controle.configuracao.sombraAuxiliarLargura = this.sombraAuxiliarLargura;
 
 
                 //carrega as configurações da fase

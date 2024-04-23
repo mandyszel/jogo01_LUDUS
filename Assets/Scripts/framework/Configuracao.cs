@@ -13,8 +13,10 @@ namespace Ludus.SDK.Framework
     {
         public List<Nivel> niveis;
         public String cenaFinal;
+        public int objetoLargura, objetoAltura, sombraLargura, sombraAltura;
         public bool conteudoauxiliar; //se a sombra que será exibida tem cotnteúdo auxiliar, influencia no prefab que será carregado da sombra
         public string sombraauxiliar;
+        public int sombraAuxiliarLargura = 100, sombraAuxiliarAltura = 100;
         public bool substituirObjetoAoParear;
 
         public Button botaoTroca;
@@ -33,6 +35,8 @@ namespace Ludus.SDK.Framework
         protected bool inicial = true;
 
         public GameObject painelObjeto, painelSombra, painelGeral;
+        private GameObject preFabObjeto, preFabSombra;
+
 
         public virtual void CarregarConfiguracao(GameObject novoPainelGeral)
         {
@@ -137,8 +141,10 @@ namespace Ludus.SDK.Framework
                 return;
             }
 
+            //Busca os Prefabs
+            this.CriarPrefabs();
 
-            CarregarPaineis();
+            this.CarregarPaineis();
 
         }
         protected abstract void CarregarPaineis();
@@ -199,13 +205,49 @@ namespace Ludus.SDK.Framework
             return verificaOcorrencia;
         }
 
-        protected virtual void AdicionarPrefab(string nomePrefab, GameObject panel)
+        protected virtual void AdicionarPrefabObjeto(GameObject panel)
         {
-            GameObject meuPF = Resources.Load<GameObject>("preFabs/" + nomePrefab);
-            GameObject instanciadoPF = GameObject.Instantiate(meuPF) as GameObject;
-            instanciadoPF.transform.SetParent(panel.transform, false);
-
+            GameObject novo = GameObject.Instantiate(preFabObjeto) as GameObject;
+            novo.transform.SetParent(panel.transform, false);
         }
+
+        protected virtual void AdicionarPrefabSombra(GameObject panel)
+        {
+            GameObject novo = GameObject.Instantiate(preFabSombra) as GameObject;
+            novo.transform.SetParent(panel.transform, false);
+        }
+
+        protected virtual void CriarPrefabs() 
+        {
+            GameObject meuPF = Resources.Load<GameObject>("preFabs/objeto");
+            preFabObjeto = GameObject.Instantiate(meuPF) as GameObject;
+            RectTransform rt = preFabObjeto.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(objetoLargura, objetoAltura);
+
+
+            rt = new RectTransform();
+
+            if (this.conteudoauxiliar)
+            {
+                meuPF = Resources.Load<GameObject>("preFabs/" + this.sombraauxiliar);
+                preFabSombra = GameObject.Instantiate(meuPF) as GameObject;
+                rt = preFabSombra.GetComponent<RectTransform>();
+                rt.sizeDelta = new Vector2(sombraLargura, sombraAltura);
+
+                preFabSombra.GetComponentsInChildren<RectTransform>().ElementAt(1).sizeDelta 
+                    = new Vector2(sombraAuxiliarLargura, sombraAuxiliarAltura);
+            }
+            else
+            {
+                meuPF = Resources.Load<GameObject>("preFabs/sombra");
+                preFabSombra = GameObject.Instantiate(meuPF) as GameObject;
+                rt = preFabSombra.GetComponent<RectTransform>();
+                rt.sizeDelta = new Vector2(sombraLargura, sombraAltura);
+            }
+
+           
+        }
+       
 
         protected virtual void VerificaFase()
         {

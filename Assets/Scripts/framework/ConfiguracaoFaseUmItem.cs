@@ -13,19 +13,11 @@ namespace Ludus.SDK.Framework
         {
             for (int i = 0; i < niveis[nivelAtual].quantidadeElementos; i++)
             {
-                AdicionarPrefab("objeto", painelObjeto);
+                AdicionarPrefabObjeto(painelObjeto);
            
             }
-            string prefabsombra;
-            if (this.conteudoauxiliar)
-            {
-                prefabsombra = "sombraComAuxiliar";
-            }
-            else 
-            {
-                prefabsombra = "sombra";
-            }
-            AdicionarPrefab(prefabsombra, painelSombra);
+            
+            AdicionarPrefabSombra(painelSombra);
 
         }
 

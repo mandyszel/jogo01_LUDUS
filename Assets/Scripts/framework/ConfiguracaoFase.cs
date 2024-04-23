@@ -20,20 +20,10 @@ namespace Ludus.SDK.Framework
 
         protected override void CarregarPaineis()
         {
-            string prefabsombra;
-            if (this.conteudoauxiliar)
-            {
-                prefabsombra = sombraauxiliar;
-            }
-            else
-            {
-                prefabsombra = "sombra";
-            }
-
             for (int i = 0; i < niveis[nivelAtual].quantidadeElementos; i++)
             {
-                AdicionarPrefab("objeto", painelObjeto);
-                AdicionarPrefab(prefabsombra, painelSombra);
+                AdicionarPrefabObjeto(painelObjeto);
+                AdicionarPrefabSombra(painelSombra);
             }
 
         }

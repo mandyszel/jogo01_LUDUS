@@ -6,16 +6,16 @@ namespace Ludus.SDK.Framework
     public class Genericos : MonoBehaviour
     {
 
-        public void CarregarCena(string nomeCena)
+        public void CarregarCena(string Menu)
         {
-            SceneManager.LoadScene(nomeCena);
+            SceneManager.LoadScene(Menu);
         }
 
 
-        public void CarregarCenaFase(string nomeCena)
+        public void CarregarCenaFase(string Menu)
         {
             Controle.configuracao = null;
-            this.CarregarCena(nomeCena);
+            this.CarregarCena(Menu);
         }
     }
 
